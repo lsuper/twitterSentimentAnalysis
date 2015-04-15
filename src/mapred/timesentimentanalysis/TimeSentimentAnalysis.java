@@ -164,7 +164,7 @@ import org.apache.hadoop.util.*;
    }
 
    public int run(String[] args) throws Exception {
-     JobConf conf = new JobConf(getConf(), WordCount.class);
+     JobConf conf = new JobConf(getConf(), TimeSentimentAnalysis.class);
      conf.setJobName("wordcount");
 
      conf.setOutputKeyClass(Text.class);
@@ -196,7 +196,7 @@ import org.apache.hadoop.util.*;
 
    public static void main(String[] args) throws Exception {
 
-     int res = ToolRunner.run(new Configuration(), new WordCount(), args);
+     int res = ToolRunner.run(new Configuration(), new TimeSentimentAnalysis(), args);
      System.exit(res);
    }
  }
