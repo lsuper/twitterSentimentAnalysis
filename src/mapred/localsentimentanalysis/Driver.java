@@ -1,4 +1,4 @@
-package mapred.sentimentanalysis;
+package mapred.localsentimentanalysis;
 
 import java.io.IOException;
 import mapred.job.Optimizedjob;
@@ -20,7 +20,6 @@ public class Driver {
 
 	private static void getJobFeatureVector(String input, String output)
 			throws IOException, ClassNotFoundException, InterruptedException {
-		
 		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
 				"Compute local sentiment");
 

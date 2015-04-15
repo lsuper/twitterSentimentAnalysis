@@ -1,4 +1,4 @@
-package mapred.sentimentanalysis;
+package mapred.localsentimentanalysis;
 
 import java.util.Map;
 
@@ -30,9 +30,15 @@ public class Coordinate {
 	public String getClosestCityName(Map<String, Coordinate> locationMap) {
 		String closestLoc = "";
 		double minDist = Double.MAX_VALUE;
+		double curDist = 0.0;
 		for (Map.Entry<String, Coordinate> entry: locationMap.entrySet()) {
-			if (this.getDistance(entry.getValue()) < minDist)
+			curDist = this.getDistance(entry.getValue());
+			if (curDist < minDist)
+			{
 				closestLoc = entry.getKey();
+				minDist = curDist;
+			}
+				
 		}
 		return closestLoc;
 	}

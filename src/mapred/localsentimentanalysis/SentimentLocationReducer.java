@@ -1,4 +1,4 @@
-package mapred.sentimentanalysis;
+package mapred.localsentimentanalysis;
 
 import java.io.IOException;
 import java.util.Properties;

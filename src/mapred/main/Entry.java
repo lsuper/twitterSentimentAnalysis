@@ -18,7 +18,7 @@ public class Entry {
 			mapred.ngramcount.Driver.main(args);
 		
 		else if (program.equals("sentimentanalysis"))
-			mapred.sentimentanalysis.Driver.main(args);
+			mapred.localsentimentanalysis.Driver.main(args);
 		else {
 			System.out.println("Unknown program!");
 			System.exit(1);
