@@ -16,9 +16,11 @@ public class Entry {
 		
 		else if (program.equals("ngramcount"))
 			mapred.ngramcount.Driver.main(args);
-		
-		else if (program.equals("sentimentanalysis"))
-			mapred.localsentimentanalysis.Driver.main(args);
+//		
+//		else if (program.equals("localsentimentanalysis"))
+//			mapred.localsentimentanalysis.Driver.main(args);
+        else if (program.equals("timesentimentanalysis"))
+            mapred.timesentimentanalysis.Driver.main(args);
 		else {
 			System.out.println("Unknown program!");
 			System.exit(1);
