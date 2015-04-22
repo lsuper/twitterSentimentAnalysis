@@ -1,12 +1,18 @@
 package mapred.main;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import mapred.util.SimpleParser;
 
 public class Entry {
 	public static void main(String args[]) throws Exception  {
 		SimpleParser parser = new SimpleParser(args);
 		String program = parser.get("program");
-		
+		System.setErr(new PrintStream(new OutputStream() {
+		    public void write(int b) {
+		    }
+		}));
 		System.out.println("Running program " + program + "..");
 
 		long start = System.currentTimeMillis();
@@ -16,11 +22,16 @@ public class Entry {
 		
 		else if (program.equals("ngramcount"))
 			mapred.ngramcount.Driver.main(args);
-//		
-//		else if (program.equals("localsentimentanalysis"))
-//			mapred.localsentimentanalysis.Driver.main(args);
+
+		else if (program.equals("localsentimentanalysis"))
+			mapred.localsentimentanalysis.Driver.main(args);
+		
         else if (program.equals("timesentimentanalysis"))
             mapred.timesentimentanalysis.Driver.main(args);
+		
+        else if (program.equals("hoursentimentanalysis"))
+            mapred.hoursentimentanalysis.Driver.main(args);
+		
 		else {
 			System.out.println("Unknown program!");
 			System.exit(1);
