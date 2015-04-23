@@ -15,6 +15,7 @@ public class SentimentHourMapper extends Mapper<LongWritable, Text, Text, Text> 
 	
 	Map<String, Coordinate> cityMap;
 	Map<String, String> cityTimeZone;
+	String timeslot;
 	public static String getDate(long unix, String timezone) {
 		Date date = new Date(unix); // *1000 is to convert seconds to milliseconds
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z"); // the format of your date
@@ -42,6 +43,8 @@ public class SentimentHourMapper extends Mapper<LongWritable, Text, Text, Text> 
 		cityTimeZone.put("Chicago", "GMT-5");
 		cityTimeZone.put("Miami", "GMT-4");
 		cityTimeZone.put("London", "GMT+1");
+		
+		timeslot = context.getConfiguration().get("timeslot", "hour") ;
 	}
 
 	@Override
@@ -53,12 +56,20 @@ public class SentimentHourMapper extends Mapper<LongWritable, Text, Text, Text> 
 		String tweet = fields[fields.length - 1];
 		String coordStr = fields[4];
 		String city;
-		String hour;
+		String time;
 		if (!coordStr.isEmpty()) {
 			Coordinate coord = new Coordinate(Double.parseDouble(coordStr.split(",")[0]), Double.parseDouble(coordStr.split(",")[1]));
 			city = coord.getClosestCityName(this.cityMap);
-			hour = getDate(Long.parseLong(fields[2]), this.cityTimeZone.get(city)).substring(11, 13);
-			context.write(new Text(hour), new Text(tweet));
+			if (timeslot.equals("date")){
+				time = getDate(Long.parseLong(fields[2]), this.cityTimeZone.get(city)).substring(0, 10);
+			}
+			else
+			{
+				//timeslot == hour
+				time = getDate(Long.parseLong(fields[2]), this.cityTimeZone.get(city)).substring(11, 13);
+			}
+			
+			context.write(new Text(time), new Text(tweet));
 		}
 	}
 }

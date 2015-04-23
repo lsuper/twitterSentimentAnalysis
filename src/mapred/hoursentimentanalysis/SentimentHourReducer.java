@@ -29,13 +29,13 @@ public class SentimentHourReducer extends Reducer<Text, Text, Text, Text> {
 			Context context)
 			throws IOException, InterruptedException {
 		long count = 0;
-		double localSentiment = 0.0;
+		double hourSentiment = 0.0;
 		for (Text tweet : value) {
-			localSentiment += this.findSentiment(tweet.toString());
+			hourSentiment += this.findSentiment(tweet.toString());
 			count += 1;
 		}
 		
-		context.write(key, new Text(String.valueOf(localSentiment/count) + "\tcount:" + String.valueOf(count)));
+		context.write(key, new Text(String.valueOf(hourSentiment/count) + "\tcount:" + String.valueOf(count)));
 	}
 	
 	private int findSentiment(String tweet) {

@@ -16,13 +16,15 @@ public class Driver {
 		
 		int reduceJobNumber = parser.getInt("reduceJob");
 
-		getJobFeatureVector(input, output, reduceJobNumber);
+		getJobFeatureVector(input, output, reduceJobNumber, parser.get("timeslot"));
 
 	}
 
-	private static void getJobFeatureVector(String input, String output, int reduceJobNumber)
+	private static void getJobFeatureVector(String input, String output, int reduceJobNumber, String timeslot)
 			throws IOException, ClassNotFoundException, InterruptedException {
-		Optimizedjob job = new Optimizedjob(new Configuration(), input, output,
+		Configuration conf = new Configuration();
+        conf.set("timeslot", timeslot);
+		Optimizedjob job = new Optimizedjob(conf, input, output,
 				"Compute hour sentiment");
 
 		job.setClasses(SentimentHourMapper.class, SentimentHourReducer.class, null);

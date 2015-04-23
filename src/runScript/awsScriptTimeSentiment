@@ -1,0 +1,5 @@
+aws emr create-cluster --name "Test cluster time slot sentiment" --ami-version 3.3.2 \
+--log-uri s3://lsuper.log-uri.localsentiment --enable-debugging \
+--instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=c1.medium InstanceGroupType=CORE,InstanceCount=8,InstanceType=c1.medium \
+--steps Type=CUSTOM_JAR,Jar=s3://lsuper.fastcode/18645-finalProj-0.1-latest.jar,Args=["-reduceJob","15","-timeslot","date","-input","s3://lsuper.fastcode/tweet_20150415","-output","s3://lsuper.output/tweet_20150415_hourSentiment_date","-program","hoursentimentanalysis","-tmpdir","tmp"] \
+--auto-terminate
